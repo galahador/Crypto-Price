@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		351F154FBC8C218536E55AFD /* Pods_CryptoPrice.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C40BC1E487B2351CFC9D07AA /* Pods_CryptoPrice.framework */; };
 		A5BCFD6B215250A90082404C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5BCFD6A215250A90082404C /* AppDelegate.swift */; };
 		A5BCFD72215250AA0082404C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A5BCFD71215250AA0082404C /* Assets.xcassets */; };
 		A5BCFD75215250AA0082404C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5BCFD73215250AA0082404C /* LaunchScreen.storyboard */; };
@@ -22,6 +23,9 @@
 		A5BCFD76215250AA0082404C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A5BCFD7C215251DD0082404C /* CryptoTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoTableViewController.swift; sourceTree = "<group>"; };
 		A5BCFD7E2152535A0082404C /* CoinData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinData.swift; sourceTree = "<group>"; };
+		C40BC1E487B2351CFC9D07AA /* Pods_CryptoPrice.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CryptoPrice.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D8EC0D5BAF44C16FA4980ED4 /* Pods-CryptoPrice.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CryptoPrice.release.xcconfig"; path = "Pods/Target Support Files/Pods-CryptoPrice/Pods-CryptoPrice.release.xcconfig"; sourceTree = "<group>"; };
+		E1F9CF62B0D6F262AF3FD834 /* Pods-CryptoPrice.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CryptoPrice.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CryptoPrice/Pods-CryptoPrice.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +33,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				351F154FBC8C218536E55AFD /* Pods_CryptoPrice.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5A63FC27C65FBF86B190B39D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C40BC1E487B2351CFC9D07AA /* Pods_CryptoPrice.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		94CC1AD1816184F1BB5B7241 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E1F9CF62B0D6F262AF3FD834 /* Pods-CryptoPrice.debug.xcconfig */,
+				D8EC0D5BAF44C16FA4980ED4 /* Pods-CryptoPrice.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		A5BCFD5E215250A90082404C = {
 			isa = PBXGroup;
 			children = (
 				A5BCFD69215250A90082404C /* CryptoPrice */,
 				A5BCFD68215250A90082404C /* Products */,
+				94CC1AD1816184F1BB5B7241 /* Pods */,
+				5A63FC27C65FBF86B190B39D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -71,9 +95,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A5BCFD79215250AA0082404C /* Build configuration list for PBXNativeTarget "CryptoPrice" */;
 			buildPhases = (
+				553F475FB835A97BC3FFF512 /* [CP] Check Pods Manifest.lock */,
 				A5BCFD63215250A90082404C /* Sources */,
 				A5BCFD64215250A90082404C /* Frameworks */,
 				A5BCFD65215250A90082404C /* Resources */,
+				EA81FCC6A43CCEBBE7E9835F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -128,6 +154,45 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		553F475FB835A97BC3FFF512 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CryptoPrice-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EA81FCC6A43CCEBBE7E9835F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-CryptoPrice/Pods-CryptoPrice-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CryptoPrice/Pods-CryptoPrice-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		A5BCFD63215250A90082404C /* Sources */ = {
@@ -270,6 +335,7 @@
 		};
 		A5BCFD7A215250AA0082404C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E1F9CF62B0D6F262AF3FD834 /* Pods-CryptoPrice.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -288,6 +354,7 @@
 		};
 		A5BCFD7B215250AA0082404C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D8EC0D5BAF44C16FA4980ED4 /* Pods-CryptoPrice.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
