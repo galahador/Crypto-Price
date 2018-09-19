@@ -14,6 +14,7 @@ class CryptoTableViewController: UITableViewController, CoinDataDelegate {
         super.viewDidLoad()
         CoinData.shared.getPrices()
         CoinData.shared.delegate = self
+        tableView.rowHeight = 70.0
     }
     
     func newPrices() {
@@ -30,9 +31,15 @@ class CryptoTableViewController: UITableViewController, CoinDataDelegate {
         let cell = UITableViewCell()
         let coin = CoinData.shared.coins[indexPath.row]
 
-        cell.textLabel?.text = "\(coin.symbol) - \(coin.price)"
+        cell.textLabel?.text = "\(coin.symbol) - \(coin.priceAsString())"
         cell.imageView?.image = coin.image
 
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let coinVC = CoinViewController()
+        coinVC.coin = CoinData.shared.coins[indexPath.row]
+        navigationController?.pushViewController(coinVC, animated: true)
     }
 }

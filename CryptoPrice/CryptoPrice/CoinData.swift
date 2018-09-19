@@ -12,7 +12,6 @@ class CoinData {
     static let shared = CoinData()
     var coins = [Coin]()
     weak var delegate: CoinDataDelegate?
-    
 
     private init() {
         let symbols = ["BTC", "ETH", "LTC"]
@@ -31,24 +30,37 @@ class CoinData {
                 listOfSymbols += ","
             }
         }
-
-        Alamofire.request("https://min-api.cryptocompare.com/data/pricemulti?fsyms=\(listOfSymbols)&tsyms=USD").responseJSON { (response) in
-            if let json = response.result.value as? [String:Any] {
+        
+        Alamofire.request("https://min-api.cryptocompare.com/data/pricemulti?fsyms=\(listOfSymbols)&tsyms=USD").responseJSON { (response)
+            in
+            if let json = response.result.value as? [String: Any] {
                 for coin in self.coins {
-                    if let coinJSON = json[coin.symbol] as? [String:Double] {
+                    if let coinJSON = json[coin.symbol] as? [String: Double] {
                         if let price = coinJSON["USD"] {
                             coin.price = price
                         }
                     }
                 }
-                self.delegate?.newPrices?() 
+                self.delegate?.newPrices?()
             }
+        }
+    }
+    
+    func doubleToMoneyString(double: Double) -> String {
+        let formater = NumberFormatter()
+        formater.locale = Locale(identifier: "en_US")
+        formater.numberStyle = .currency
+        if let fancyPrice = formater.string(from: NSNumber(floatLiteral: double)) {
+            return fancyPrice
+        } else {
+            return "ERROR"
         }
     }
 }
 
 @objc protocol CoinDataDelegate: class {
-   @objc optional func newPrices()
+    @objc optional func newPrices()
+    @objc optional func newHistory()
 }
 
 class Coin {
@@ -65,18 +77,27 @@ class Coin {
         }
     }
     
+    func getHistoricalData() {
+        Alamofire.request("https://min-api.cryptocompare.com/data/histoday?fsym=\(symbol)&tsym=USD&limit=30").responseJSON { (response)
+            in
+            if let json = response.result.value as? [String: Any] {
+                if let pricesJSON = json["Data"] as? [[String : Double]] {
+                    self.historicalData = []
+                    for priceJSON in pricesJSON {
+                        if let closePrices = priceJSON["close"] {
+                            self.historicalData.append(closePrices)
+                        }
+                    }
+                    CoinData.shared.delegate?.newHistory?()
+                }
+            }
+        }
+    }
+
     func priceAsString() -> String {
         if price == 0.0 {
             return "Loading . . ."
         }
-        
-        let formater = NumberFormatter()
-        formater.locale = Locale(identifier: "en_US")
-        formater.numberStyle = .currency
-        if let fancyPrice = formater.string(from: NSNumber(floatLiteral: price)) {
-            return fancyPrice
-        } else {
-            return "ERROR"
-        }
+       return CoinData.shared.doubleToMoneyString(double: price)
     }
 }
