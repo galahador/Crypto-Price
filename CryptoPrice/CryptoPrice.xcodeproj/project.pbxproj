@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		351F154FBC8C218536E55AFD /* Pods_CryptoPrice.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C40BC1E487B2351CFC9D07AA /* Pods_CryptoPrice.framework */; };
 		A53E7DA621526AC90031B7F0 /* CoinViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53E7DA521526AC90031B7F0 /* CoinViewController.swift */; };
+		A53E7DAA2153D69E0031B7F0 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53E7DA92153D69E0031B7F0 /* AuthViewController.swift */; };
 		A5BCFD6B215250A90082404C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5BCFD6A215250A90082404C /* AppDelegate.swift */; };
 		A5BCFD72215250AA0082404C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A5BCFD71215250AA0082404C /* Assets.xcassets */; };
 		A5BCFD75215250AA0082404C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5BCFD73215250AA0082404C /* LaunchScreen.storyboard */; };
@@ -18,6 +19,7 @@
 
 /* Begin PBXFileReference section */
 		A53E7DA521526AC90031B7F0 /* CoinViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinViewController.swift; sourceTree = "<group>"; };
+		A53E7DA92153D69E0031B7F0 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		A5BCFD67215250A90082404C /* CryptoPrice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CryptoPrice.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5BCFD6A215250A90082404C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A5BCFD71215250AA0082404C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -59,6 +61,24 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		A53E7DA72153D65A0031B7F0 /* CoinData */ = {
+			isa = PBXGroup;
+			children = (
+				A5BCFD7E2152535A0082404C /* CoinData.swift */,
+			);
+			path = CoinData;
+			sourceTree = "<group>";
+		};
+		A53E7DA82153D66D0031B7F0 /* Controler */ = {
+			isa = PBXGroup;
+			children = (
+				A53E7DA521526AC90031B7F0 /* CoinViewController.swift */,
+				A53E7DA92153D69E0031B7F0 /* AuthViewController.swift */,
+				A5BCFD7C215251DD0082404C /* CryptoTableViewController.swift */,
+			);
+			path = Controler;
+			sourceTree = "<group>";
+		};
 		A5BCFD5E215250A90082404C = {
 			isa = PBXGroup;
 			children = (
@@ -81,9 +101,8 @@
 			isa = PBXGroup;
 			children = (
 				A5BCFD6A215250A90082404C /* AppDelegate.swift */,
-				A5BCFD7E2152535A0082404C /* CoinData.swift */,
-				A53E7DA521526AC90031B7F0 /* CoinViewController.swift */,
-				A5BCFD7C215251DD0082404C /* CryptoTableViewController.swift */,
+				A53E7DA82153D66D0031B7F0 /* Controler */,
+				A53E7DA72153D65A0031B7F0 /* CoinData */,
 				A5BCFD71215250AA0082404C /* Assets.xcassets */,
 				A5BCFD73215250AA0082404C /* LaunchScreen.storyboard */,
 				A5BCFD76215250AA0082404C /* Info.plist */,
@@ -206,6 +225,7 @@
 			files = (
 				A5BCFD7F2152535A0082404C /* CoinData.swift in Sources */,
 				A5BCFD7D215251DD0082404C /* CryptoTableViewController.swift in Sources */,
+				A53E7DAA2153D69E0031B7F0 /* AuthViewController.swift in Sources */,
 				A5BCFD6B215250A90082404C /* AppDelegate.swift in Sources */,
 				A53E7DA621526AC90031B7F0 /* CoinViewController.swift in Sources */,
 			);

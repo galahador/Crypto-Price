@@ -41,6 +41,7 @@ class CryptoTableViewController: UITableViewController, CoinDataDelegate {
         }
     }
 
+    //MARK: Header View setup
     fileprivate func headerView() -> UIView {
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: headerHight))
         headerView.backgroundColor = .white

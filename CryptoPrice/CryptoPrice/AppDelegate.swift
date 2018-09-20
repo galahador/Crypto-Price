@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import LocalAuthentication
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,10 +16,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
-        let cryptoTableVC = CryptoTableViewController()
-        let navController = UINavigationController(rootViewController: cryptoTableVC)
 
-        window?.rootViewController = navController
+        if LAContext().canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) && UserDefaults.standard.bool(forKey: "secure") {
+            let authVC = AuthViewController()
+            window?.rootViewController = authVC
+        } else {
+            let cryptoTableVC = CryptoTableViewController()
+            let navController = UINavigationController(rootViewController: cryptoTableVC)
+            window?.rootViewController = navController
+        }
         window?.makeKeyAndVisible()
 
         return true
@@ -46,6 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
-
+    fileprivate func checkEvaluatePolicy () {
+    }
 }
 
