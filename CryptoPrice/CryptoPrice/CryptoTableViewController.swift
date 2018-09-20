@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import LocalAuthentication
 
 private let headerHight: CGFloat = 100.0
 private let networthHeight: CGFloat = 45.0
@@ -20,17 +21,24 @@ class CryptoTableViewController: UITableViewController, CoinDataDelegate {
         super.viewDidLoad()
         CoinData.shared.getPrices()
         tableView.rowHeight = 70.0
+        checkEvaluatePolicy()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         CoinData.shared.delegate = self
-        displeyNetworth()
         tableView.reloadData()
+        displeyNetworth()
     }
 
     func newPrices() {
         displeyNetworth()
         tableView.reloadData()
+    }
+
+    fileprivate func checkEvaluatePolicy () {
+        if LAContext().canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) {
+            updateSeureButton()
+        }
     }
 
     fileprivate func headerView() -> UIView {
@@ -59,10 +67,35 @@ class CryptoTableViewController: UITableViewController, CoinDataDelegate {
         headerView.addSubview(amountLabel)
     }
 
-
     fileprivate func displeyNetworth() {
         amountLabel.text = CoinData.shared.networthAsString()
     }
+
+    //MARK: - Security logic
+    fileprivate func updateSeureButton() {
+        if UserDefaults.standard.bool(forKey: "secure") {
+            navigationItemSetup(title: "Unsecure App")
+        } else {
+            navigationItemSetup(title: "Secure App")
+        }
+    }
+
+    @objc fileprivate func sucureButtonTapped() {
+        if UserDefaults.standard.bool(forKey: "secure") {
+            UserDefaults.standard.set(false, forKey: "secure")
+        } else {
+            UserDefaults.standard.set(true, forKey: "secure")
+        }
+        updateSeureButton()
+    }
+
+    //MARK: Navigation item setup
+    fileprivate func navigationItemSetup(title: String) {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: title, style: .plain, target: self, action: #selector(sucureButtonTapped))
+    }
+
+
+    // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return headerHight
@@ -71,8 +104,6 @@ class CryptoTableViewController: UITableViewController, CoinDataDelegate {
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return headerView()
     }
-
-    // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return CoinData.shared.coins.count
@@ -84,6 +115,7 @@ class CryptoTableViewController: UITableViewController, CoinDataDelegate {
 
         if coin.amount == 0.0 {
             cell.textLabel?.text = "\(coin.symbol) - \(coin.priceAsString()) - \(coin.amount)"
+            cell.imageView?.image = coin.image
         } else {
             cell.textLabel?.text = "\(coin.symbol) - \(coin.priceAsString())"
             cell.imageView?.image = coin.image
