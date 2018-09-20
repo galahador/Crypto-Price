@@ -75,9 +75,9 @@ class CryptoTableViewController: UITableViewController, CoinDataDelegate {
     //MARK: - Security logic
     fileprivate func updateSeureButton() {
         if UserDefaults.standard.bool(forKey: "secure") {
-            navigationItemSetup(title: "Unsecure App")
+            navigationItemRightSetup(title: "Unsecure App")
         } else {
-            navigationItemSetup(title: "Secure App")
+            navigationItemRightSetup(title: "Secure App")
         }
     }
 
@@ -90,10 +90,39 @@ class CryptoTableViewController: UITableViewController, CoinDataDelegate {
         updateSeureButton()
     }
 
+    //MARK: - report button and render logic
+    @objc fileprivate func reportButtonTapped() {
+        renderAndPDFSetup()
+    }
+
+    fileprivate func renderAndPDFSetup() {
+        let formater = UIMarkupTextPrintFormatter(markupText: "test")
+        let render = UIPrintPageRenderer()
+        render.addPrintFormatter(formater, startingAtPageAt: 0)
+        let page = CGRect(x: 0, y: 0, width: 592.2, height: 841.8)
+        render.setValue(page, forKey: "paperRect")
+        render.setValue(page, forKey: "printableRect")
+        let pdfData = NSMutableData()
+        UIGraphicsBeginPDFContextToData(pdfData, .zero, nil)
+        for i in 0..<render.numberOfPages {
+            UIGraphicsBeginPDFPage()
+            render.drawPage(at: i, in: UIGraphicsGetPDFContextBounds())
+        }
+        UIGraphicsEndPDFContext()
+        let shareVC = UIActivityViewController(activityItems: [pdfData], applicationActivities: nil)
+        present(shareVC, animated: true, completion: nil)
+    }
+
     //MARK: Navigation item setup
-    fileprivate func navigationItemSetup(title: String) {
+    fileprivate func navigationItemRightSetup(title: String) {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: title, style: .plain, target: self, action: #selector(sucureButtonTapped))
     }
+
+    fileprivate func navigationItemLeftSetup(title: String) {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: title, style: .plain, target: self, action: #selector(reportButtonTapped))
+    }
+
+
 
 
     // MARK: - Table view data source
