@@ -13,10 +13,14 @@ class CryptoTableViewController: UITableViewController, CoinDataDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         CoinData.shared.getPrices()
-        CoinData.shared.delegate = self
         tableView.rowHeight = 70.0
     }
-    
+
+    override func viewWillAppear(_ animated: Bool) {
+        CoinData.shared.delegate = self
+        tableView.reloadData()
+    }
+
     func newPrices() {
         tableView.reloadData()
     }
@@ -36,7 +40,7 @@ class CryptoTableViewController: UITableViewController, CoinDataDelegate {
 
         return cell
     }
-    
+
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let coinVC = CoinViewController()
         coinVC.coin = CoinData.shared.coins[indexPath.row]

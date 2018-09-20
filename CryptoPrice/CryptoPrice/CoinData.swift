@@ -30,7 +30,7 @@ class CoinData {
                 listOfSymbols += ","
             }
         }
-        
+
         Alamofire.request("https://min-api.cryptocompare.com/data/pricemulti?fsyms=\(listOfSymbols)&tsyms=USD").responseJSON { (response)
             in
             if let json = response.result.value as? [String: Any] {
@@ -45,7 +45,7 @@ class CoinData {
             }
         }
     }
-    
+
     func doubleToMoneyString(double: Double) -> String {
         let formater = NumberFormatter()
         formater.locale = Locale(identifier: "en_US")
@@ -76,12 +76,12 @@ class Coin {
             self.image = image
         }
     }
-    
+
     func getHistoricalData() {
         Alamofire.request("https://min-api.cryptocompare.com/data/histoday?fsym=\(symbol)&tsym=USD&limit=30").responseJSON { (response)
             in
             if let json = response.result.value as? [String: Any] {
-                if let pricesJSON = json["Data"] as? [[String : Double]] {
+                if let pricesJSON = json["Data"] as? [[String: Double]] {
                     self.historicalData = []
                     for priceJSON in pricesJSON {
                         if let closePrices = priceJSON["close"] {
@@ -98,6 +98,10 @@ class Coin {
         if price == 0.0 {
             return "Loading . . ."
         }
-       return CoinData.shared.doubleToMoneyString(double: price)
+        return CoinData.shared.doubleToMoneyString(double: price)
+    }
+
+    func amountAsString() -> String {
+        return CoinData.shared.doubleToMoneyString(double: amount * price)
     }
 }
