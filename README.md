@@ -1,3 +1,6 @@
 # Crypto-Price
 
-Crypto price app without storyboard
+Crypto price app 
+
+Add Biometric security 
+No Storyboard 

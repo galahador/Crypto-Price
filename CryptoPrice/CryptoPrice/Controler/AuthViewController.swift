@@ -14,10 +14,10 @@ class AuthViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
-        
+
         presentAuth()
     }
-    
+
     fileprivate func presentAuth() {
         LAContext().evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: "Your crypto is proctected by biometrics") { (success, error) in
             if success {
