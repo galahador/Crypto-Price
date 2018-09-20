@@ -14,14 +14,13 @@ class AuthViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
-
         presentAuth()
     }
 
     fileprivate func presentAuth() {
         LAContext().evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: "Your crypto is proctected by biometrics") { (success, error) in
             if success {
-                DispatchQueue.main.sync {
+                DispatchQueue.main.async {
                     let cryptoTableVC = CryptoTableViewController()
                     let navController = UINavigationController(rootViewController: cryptoTableVC)
                     self.present(navController, animated: true, completion: nil)
