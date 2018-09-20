@@ -8,7 +8,13 @@
 
 import UIKit
 
+private let headerHight: CGFloat = 100.0
+private let networthHeight: CGFloat = 45.0
+private let amountLabelFontSize: CGFloat = 60.0
+
 class CryptoTableViewController: UITableViewController, CoinDataDelegate {
+
+    var amountLabel = UILabel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,11 +24,52 @@ class CryptoTableViewController: UITableViewController, CoinDataDelegate {
 
     override func viewWillAppear(_ animated: Bool) {
         CoinData.shared.delegate = self
+        displeyNetworth()
         tableView.reloadData()
     }
 
     func newPrices() {
+        displeyNetworth()
         tableView.reloadData()
+    }
+
+    fileprivate func headerView() -> UIView {
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: headerHight))
+        headerView.backgroundColor = .white
+
+        networthLabelSetup(with: headerView)
+        amountLabelSetup(with: headerView)
+        displeyNetworth()
+
+        return headerView
+    }
+
+    //MARK: - Label setup and logic
+    fileprivate func networthLabelSetup(with headerView: UIView) {
+        let networthLabel = UILabel(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: networthHeight))
+        networthLabel.text = "My Cryto net worth"
+        networthLabel.textAlignment = .center
+        headerView.addSubview(networthLabel)
+    }
+
+    fileprivate func amountLabelSetup(with headerView: UIView) {
+        amountLabel.frame = CGRect(x: 0, y: networthHeight, width: view.frame.size.width, height: headerHight - networthHeight)
+        amountLabel.textAlignment = .center
+        amountLabel.font = UIFont.boldSystemFont(ofSize: amountLabelFontSize)
+        headerView.addSubview(amountLabel)
+    }
+
+
+    fileprivate func displeyNetworth() {
+        amountLabel.text = CoinData.shared.networthAsString()
+    }
+
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return headerHight
+    }
+
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return headerView()
     }
 
     // MARK: - Table view data source
@@ -35,9 +82,12 @@ class CryptoTableViewController: UITableViewController, CoinDataDelegate {
         let cell = UITableViewCell()
         let coin = CoinData.shared.coins[indexPath.row]
 
-        cell.textLabel?.text = "\(coin.symbol) - \(coin.priceAsString())"
-        cell.imageView?.image = coin.image
-
+        if coin.amount == 0.0 {
+            cell.textLabel?.text = "\(coin.symbol) - \(coin.priceAsString()) - \(coin.amount)"
+        } else {
+            cell.textLabel?.text = "\(coin.symbol) - \(coin.priceAsString())"
+            cell.imageView?.image = coin.image
+        }
         return cell
     }
 

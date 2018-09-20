@@ -56,6 +56,15 @@ class CoinData {
             return "ERROR"
         }
     }
+    
+    func networthAsString() -> String {
+        var networth = 0.0
+        for coin in coins {
+            networth += coin.amount * coin.price
+        }
+        return doubleToMoneyString(double: networth)
+    }
+
 }
 
 @objc protocol CoinDataDelegate: class {
