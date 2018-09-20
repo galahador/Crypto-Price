@@ -22,6 +22,7 @@ class CryptoTableViewController: UITableViewController, CoinDataDelegate {
         CoinData.shared.getPrices()
         tableView.rowHeight = 70.0
         checkEvaluatePolicy()
+        navigationItemLeftSetup(title: "Report")
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -96,7 +97,7 @@ class CryptoTableViewController: UITableViewController, CoinDataDelegate {
     }
 
     fileprivate func renderAndPDFSetup() {
-        let formater = UIMarkupTextPrintFormatter(markupText: "test")
+        let formater = UIMarkupTextPrintFormatter(markupText: CoinData.shared.html())
         let render = UIPrintPageRenderer()
         render.addPrintFormatter(formater, startingAtPageAt: 0)
         let page = CGRect(x: 0, y: 0, width: 592.2, height: 841.8)
@@ -121,9 +122,6 @@ class CryptoTableViewController: UITableViewController, CoinDataDelegate {
     fileprivate func navigationItemLeftSetup(title: String) {
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: title, style: .plain, target: self, action: #selector(reportButtonTapped))
     }
-
-
-
 
     // MARK: - Table view data source
 
