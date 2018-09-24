@@ -5,7 +5,7 @@ target 'CryptoPrice' do
   use_frameworks!
 
   # Pods for CryptoPrice
-    pod 'Alamofire', '4.7.2'
+    pod 'Alamofire'
     pod 'SwiftChart', '1.0.1'
 
 end
