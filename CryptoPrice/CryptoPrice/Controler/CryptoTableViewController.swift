@@ -16,6 +16,7 @@ private let amountLabelFontSize: CGFloat = 60.0
 class CryptoTableViewController: UITableViewController, CoinDataDelegate {
 
     var amountLabel = UILabel()
+    let prices = Prices()
 
     override func viewDidLoad() {
         super.viewDidLoad()

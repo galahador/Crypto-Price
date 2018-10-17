@@ -16,6 +16,7 @@ private let userOwnLabelHight: CGFloat = 25.0
 
 class CoinViewController: UIViewController, CoinDataDelegate {
 
+    let historicalData = HistoricalData()
     var chart = Chart()
     var coin: Coin?
     var priceLabel = UILabel()
@@ -56,7 +57,8 @@ class CoinViewController: UIViewController, CoinDataDelegate {
         let imageView = UIImageView(frame: CGRect(x: view.frame.size.width / 2 - imageSize / 2, y: chartHight, width: imageSize, height: imageSize))
         view.addSubview(imageView)
         imageView.image = coin.image
-        coin.getHistoricalData()
+        historicalData.getHistoricalData(symbol: coin.symbol, coin: coin)
+
         newPrices()
     }
 
@@ -122,7 +124,7 @@ class CoinViewController: UIViewController, CoinDataDelegate {
                 if let text = alertController.textFields?[0].text {
                     if let amount = Double(text) {
                         self.coin?.amount = amount
-                         UserDefaults.standard.set(amount, forKey: coin.symbol + "amount")
+                        UserDefaults.standard.set(amount, forKey: coin.symbol + "amount")
                         self.newPrices()
                     }
                 }
